@@ -1,32 +1,73 @@
-/*Function definitions in Rust start with fn and have a set of parentheses after the function name.*/
 fn main() {
-    println!("Hello, world!");
-    another_function(5, 9);
-    function_expression();
-    let mul = multi(10, 20);
-    println!("{:?}", mul);
-}
+    /*if Expressions*/
+    let number = 3;
+    if number < 5 {
+        println!("condition was true");
+    } else {
+        println!("condition was false");
+    }
 
-/*fn another_function() {
-    println!("Another function.");
-}*/
-/*Functions can also be defined to have parameters, which are special variables that are part of a function’s signature.*/
-fn another_function(x: i32, y: i64) {
-    println!("The value of x is: {}", x);
-    println!("The value of x is: {}", y);
-}
+    /*Multiple Conditions with else if*/
+    let number = 6;
+    if number % 4 == 0 {
+        println!("number is divisible by 4");
+    } else if number % 3 == 0 {
+        println!("number is divisible by 3");
+    } else if number % 2 == 0 {
+        println!("number is divisible by 2");
+    } else {
+        println!("number is not divisible by 4, 3, or 2");
+    }
 
-fn function_expression() {
-    let x: i32 = 0;
-    let y = {
-        let x = 4;
-        x + 1;
+    /*Using if in a let Statement*/
+    let condition = true;
+    let number = if condition { 5 } else { 6 };
+
+    /*Repetition with Loops*/
+    /*    loop {
+            println!("again!");
+        }
+    */
+    /*Returning Values from Loops*/
+    let mut counter = 0;
+
+    let result = loop {
+        counter += 1;
+        if counter == 10 {
+            break counter * 2;
+        }
     };
-    println!("The value of x is: {}", x);
-    println!("The value of x is: {:?}", y);
-}
+    println!("The result is {}", result);
 
-/*Functions can return values to the code that calls them*/
-fn multi(x: i32, y: i32) -> i32 {
-    return x * y;
+    /*Conditional Loops with while*/
+    let mut number = 3;
+
+    while number != 0 {
+        println!("{}!", number);
+        number -= 1;
+    }
+
+    /*Looping Through a Collection with for*/
+    let a = [10, 20, 30, 40, 50];
+    let mut index = 0;
+
+    while index < 5 {
+        println!("the value is: {}", a[index]);
+        index += 1;
+    }
+    for element in &a {
+        println!("the value is: {}", element);
+    }
+    for element in a.iter() {
+        println!("the value is: {}", element);
+    }
+    let mut index = 0;
+    while index < 4 {
+        println!("{}!", index);
+        index += 1
+    }
+    for number in (0..a.len()).rev() {
+        println!("{}!", number);
+    };
+    println!("LIFTOFF!!!");
 }
