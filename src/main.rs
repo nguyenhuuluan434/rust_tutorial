@@ -1,73 +1,93 @@
 fn main() {
-    /*if Expressions*/
-    let number = 3;
-    if number < 5 {
-        println!("condition was true");
-    } else {
-        println!("condition was false");
+    /*The ownership it enable Rust make memory safety*/
+    /*features: borrowing, slices*/
+    {                           // s is not valid here, it’s not yet declared
+        let s = set_string();   // s is valid from this point forward
+        // do stuff with s
+        println!("{:p}", &s);
+        println!("{}", s);
+    }                           // this scope is now over, and s is no longer valid
+
+    let x = 5;
+    let y = x;
+    println!("{:p}", &x);
+    println!("{:p}", &y);
+
+    let s1 = String::from("hello");
+    //it's known as move s1 to s2
+    //with only s2 available
+    let s2 = s1;
+    //println!("{:p}", &s1);
+    println!("{:p}", &s2);
+    /*The "String" type í allocated on the heap */
+    let mut s = String::from("hello");
+    println!("{:p}", &s);
+    println!("{}", s);
+    s.push_str(", world! ");
+    /*The double colon (::) is an operator that allows us to namespace this particular from function under the String, discuss in Method Syntax*/
+    println!("{}", s);
+
+    let mut vec = Vec::new();
+    vec.push(1);
+    vec.push(2);
+    vec.push(3);
+    vec.push(4);
+    vec.push(5);
+    vec.push(6);
+    let mut x: i32;
+    for mut val in &vec {
+        println!("{}", val);
+        x = val.clone();
+        val = &(x * 2);
     }
-
-    /*Multiple Conditions with else if*/
-    let number = 6;
-    if number % 4 == 0 {
-        println!("number is divisible by 4");
-    } else if number % 3 == 0 {
-        println!("number is divisible by 3");
-    } else if number % 2 == 0 {
-        println!("number is divisible by 2");
-    } else {
-        println!("number is not divisible by 4, 3, or 2");
+    for val in &vec {
+        println!("{}", val)
     }
+    let s1 = String::from("hello");
+    let s2 = s1.clone();
 
-    /*Using if in a let Statement*/
-    let condition = true;
-    let number = if condition { 5 } else { 6 };
+    println!("s1 = {:p}, s2 = {:p}", &s1, &s2);
+    let s1 = String::from("hello");
+    println!("s1 = {:p}", &s1);
+    let s2 = get_string(String::from(s1));
+    println!("s2 = {:p}", &s2);
+    foo(&s2);
+    println!("s2 = {:p}", &s2);
+    let mut s2 = String::from("hello");
+    println!("s2 before move = {:p}", &s2);
+    mutable(&mut s2);
+    println!("s2 after move = {:p}", &s2);
+}
 
-    /*Repetition with Loops*/
-    /*    loop {
-            println!("again!");
-        }
-    */
-    /*Returning Values from Loops*/
-    let mut counter = 0;
+fn set_string() -> String {
+    let mut s = String::from("1234");
+    s.push_str("test");
+    println!("{:p}", &s);
+    return s;
+}
 
-    let result = loop {
-        counter += 1;
-        if counter == 10 {
-            break counter * 2;
-        }
-    };
-    println!("The result is {}", result);
+fn get_string(string: String) -> String {
+    let result = String::from(string);
+    // gives ownership to invoker
+    return result;
+}
 
-    /*Conditional Loops with while*/
-    let mut number = 3;
+fn foo(string: &String) {
+    println!("{:p}", string.as_ptr());
+    bar(&string)
+}
 
-    while number != 0 {
-        println!("{}!", number);
-        number -= 1;
-    }
+fn bar(string: &String) {
+    println!("{:p}", string.as_ptr());
+    baz(&string)
+}
 
-    /*Looping Through a Collection with for*/
-    let a = [10, 20, 30, 40, 50];
-    let mut index = 0;
+fn baz(string: &String) {
+    println!("{:p}", string.as_ptr())
+}
 
-    while index < 5 {
-        println!("the value is: {}", a[index]);
-        index += 1;
-    }
-    for element in &a {
-        println!("the value is: {}", element);
-    }
-    for element in a.iter() {
-        println!("the value is: {}", element);
-    }
-    let mut index = 0;
-    while index < 4 {
-        println!("{}!", index);
-        index += 1
-    }
-    for number in (0..a.len()).rev() {
-        println!("{}!", number);
-    };
-    println!("LIFTOFF!!!");
+//mutable reference
+fn mutable(string: &mut String) {
+    println!("begin move : {:p}", string.as_ptr());
+    string.push_str("1234")
 }
