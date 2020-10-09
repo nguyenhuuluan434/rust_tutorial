@@ -155,6 +155,7 @@ fn test_match(){
 
     for &input in &[16, 23, 42, 43] {
         match input {
+            //always match with
             a => println!("Input is equal to a"),
             b => println!("Input is equal to b"),
             c => println!("Input is equal to c"),
