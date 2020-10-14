@@ -19,6 +19,10 @@ pub fn eat_at_restaurant() {
 fn main() {}
 
 ```
+By using pub use, external code can now call the add_to_waitlist function using hosting::add_to_waitlist.
+ If we hadn’t specified pub use, the eat_at_restaurant function could call hosting::add_to_waitlist in 
+ its scope, but external code couldn’t take advantage of this new path.
+
 
 Adding _**use**_ and a path in a scope is similar to creating a symbolic link in the filesystem or
 alias in linux cli

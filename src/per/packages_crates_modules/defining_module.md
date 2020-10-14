@@ -15,6 +15,7 @@ Modules can also hold definitions for other items, such as struct, enums, consta
 that _**src/main.rs**_ and **_src/lib.rs_** are called crate roots. 
 
 Notice that the entire module tree is rooted under the implicit module named _**restaurant**_.
+
 ```
 restaurant
  └── front_of_house

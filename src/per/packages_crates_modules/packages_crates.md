@@ -1,15 +1,14 @@
-A **crate** is binary or library.
+A **crate** is _**binary**_ or _**library**_.
 
 The **crate root** is a _source file_ that the Rust compiler starts from 
 and makes up the root module of your crate.
 
-A package is one or more crates that provide a set of functionality.
+A **package** is _one_ or _more crates_ that provide a set of functionality.
+A package contains a **Cargo.toml** file that describes how to build those crates.
 A package must contain zero or one library crates, and no more.
 
-A package contains a **Cargo.toml** file that describes how to build those crates.
-
 ```shell script
-$ cargo new my-project
+$ cargo new my-project --lib
      Created binary (application) `my-project` package
 #When we entered the command, Cargo created a Cargo.toml file, giving us a package.
 $ ls my-project
